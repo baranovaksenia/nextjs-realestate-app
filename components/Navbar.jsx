@@ -2,17 +2,53 @@
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { FaGoogle } from "react-icons/fa"
 import logo from "../app/assets/images/logo-white.png"
 import profileDefault from "../app/assets/images/profile.png"
+
+/**
+ * This component represents the navigation bar of the application.
+ * It includes a mobile menu button, logo, navigation links, and user profile menu.
+ */
 const Navbar = () => {
+	// State variables for mobile menu, profile menu, and login status
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 	const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false)
-	const [isLoggedIn, setIsLoggedIn] = useState(false)
+	const [isLoggedIn, setIsLoggedIn] = useState(true)
 
+	// Ref for profile menu and current pathname
+	const profileMenuRef = useRef()
 	const pathname = usePathname()
 	// console.log(pathname) /vendors
+
+	// Effect to handle clicks outside the menus and remove event listener on component unmount
+	useEffect(() => {
+		// Функция будет вызвана при клике в любом месте документа.
+		function handleClickOutside(event) {
+			// Проверяем условия и закрываем меню
+			if (
+				profileMenuRef.current &&
+				!profileMenuRef.current.contains(event.target)
+			) {
+				setIsProfileMenuOpen(false)
+			}
+			if (
+				isMobileMenuOpen &&
+				!event.target.closest("#mobile-dropdown-button") &&
+				!event.target.closest("#mobile-menu")
+			) {
+				setIsMobileMenuOpen(false)
+			}
+		}
+
+		// Добавляем слушатель события для window после того, как компонент монтируется.
+		window.addEventListener("mousedown", handleClickOutside)
+
+		// Очистка события при размонтировании компонента.
+		return () => window.removeEventListener("mousedown", handleClickOutside)
+	}, [isProfileMenuOpen, isMobileMenuOpen])
+
 	return (
 		<nav className="bg-blue-700 border-b border-blue-500">
 			<div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -25,7 +61,10 @@ const Navbar = () => {
 							className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
 							aria-controls="mobile-menu"
 							aria-expanded="false"
-							onClick={() => setIsMobileMenuOpen(prev => !prev)}
+							onClick={() => {
+								setIsMobileMenuOpen(prev => !prev)
+								setIsProfileMenuOpen(false) // Закрываем профильное меню при открытии мобильного
+							}}
 						>
 							<span className="absolute -inset-0.5"></span>
 							<span className="sr-only">Open main menu</span>
@@ -139,7 +178,10 @@ const Navbar = () => {
 										id="user-menu-button"
 										aria-expanded="false"
 										aria-haspopup="true"
-										onClick={() => setIsProfileMenuOpen(prev => !prev)}
+										onClick={() => {
+											setIsProfileMenuOpen(prev => !prev)
+											setIsMobileMenuOpen(false) // Закрываем мобильное меню при открытии профильного
+										}}
 									>
 										<span className="absolute -inset-1.5"></span>
 										<span className="sr-only">Open user menu</span>
@@ -154,6 +196,7 @@ const Navbar = () => {
 								{/* <!-- Profile dropdown --> */}
 								{isProfileMenuOpen && (
 									<div
+										ref={profileMenuRef}
 										id="user-menu"
 										className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
 										role="menu"
