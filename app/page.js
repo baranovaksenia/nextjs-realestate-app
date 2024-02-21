@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero"
+import HomeVendors from "@/components/HomeVendors"
 import InfoBoxes from "@/components/InfoBoxes"
 
 export default function Home() {
@@ -6,6 +7,7 @@ export default function Home() {
 		<>
 			<Hero />
 			<InfoBoxes />
+			<HomeVendors />
 		</>
 	)
 }
