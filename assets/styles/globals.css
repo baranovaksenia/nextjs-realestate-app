@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.vendor-image {
+	width: 100%; /* Make it fill the container width */
+	height: auto; /* Maintain aspect ratio */
+	object-fit: cover; /* Cover the area without stretching */
+}

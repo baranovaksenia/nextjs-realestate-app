@@ -1,11 +1,11 @@
 "use client"
+import logo from "@/assets/images/logo-white.png"
+import profileDefault from "@/assets/images/profile.png"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 import { FaGoogle } from "react-icons/fa"
-import logo from "../app/assets/images/logo-white.png"
-import profileDefault from "../app/assets/images/profile.png"
 
 /**
  * This component represents the navigation bar of the application.
@@ -50,7 +50,7 @@ const Navbar = () => {
 	}, [isProfileMenuOpen, isMobileMenuOpen])
 
 	return (
-		<nav className="bg-blue-700 border-b border-blue-500">
+		<nav className="bg-[#1e295a] border-b border-blue-500">
 			<div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
 				<div className="relative flex h-20 items-center justify-between">
 					<div className="absolute inset-y-0 left-0 flex items-center md:hidden">
@@ -100,16 +100,16 @@ const Navbar = () => {
 								<Link
 									href="/"
 									className={`${
-										pathname === "/" ? "bg-black" : ""
-									} text-white  hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
+										pathname === "/" ? "bg-gray-100 text-black" : ""
+									} text-white  hover:bg-gray-100 hover:text-black rounded-md px-3 py-2`}
 								>
 									Home
 								</Link>
 								<Link
 									href="/vendors"
 									className={`${
-										pathname === "/vendors" ? "bg-black" : ""
-									} text-white  hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
+										pathname === "/vendors" ? "bg-gray-100 text-black" : ""
+									} text-white  hover:bg-gray-100 hover:text-black rounded-md px-3 py-2`}
 								>
 									Vendors
 								</Link>
@@ -117,8 +117,10 @@ const Navbar = () => {
 									<Link
 										href="/vendors/add"
 										className={`${
-											pathname === "/vendors/add" ? "bg-black" : ""
-										} text-white  hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
+											pathname === "/vendors/add"
+												? "bg-gray-100 text-black"
+												: ""
+										} text-white  hover:bg-gray-100 hover:text-black rounded-md px-3 py-2`}
 									>
 										Create Ad
 									</Link>

@@ -1,6 +1,6 @@
+import logo from "@/assets/images/logo.png"
 import Image from "next/image"
 import Link from "next/link"
-import logo from "../app/assets/images/logo.png"
 const Footer = () => {
 	return (
 		<footer className="bg-gray-200 py-4 mt-auto">
