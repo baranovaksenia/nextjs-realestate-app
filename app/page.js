@@ -1,18 +1,20 @@
 import Hero from "@/components/Hero"
 import HomeVendors from "@/components/HomeVendors"
 import InfoBoxes from "@/components/InfoBoxes"
-import { TextRevealCard } from "@/components/ui/text-reveal-card"
+import connectDB from "@/config/database"
+const Home = async () => {
+	await connectDB()
 
-export default function Home() {
 	return (
 		<>
 			<Hero />
 			<InfoBoxes />
 			<HomeVendors />
-			<TextRevealCard
+			{/* <TextRevealCard
 				text="Explore Crypto Services"
 				revealText="Explore Crypto Services"
-			/>
+			/> */}
 		</>
 	)
 }
+export default Home
